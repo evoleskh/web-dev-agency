@@ -7,11 +7,6 @@
     <title>WebCraft Studios - Premium Web Development</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            important: true
-        }
-    </script>
     <style>
         * {
             margin: 0;
@@ -127,8 +122,8 @@
     }
 
     /* Navigation - will be handled by Tailwind */
-    nav * {
-        all: revert;
+    nav {
+        font-family: 'Roboto', sans-serif;
     }
 
     /* Hero Section */
@@ -177,19 +172,21 @@
     .cta-button {
         display: inline-block;
         padding: 1rem 2.5rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: transparent;
         color: white;
         text-decoration: none;
         border-radius: 50px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
         font-weight: 500;
         transition: all 0.3s ease;
         animation: fadeInUp 1s ease 0.4s both;
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
     }
 
     .cta-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        transform: translateY(-3px) scale(1.05);
+        border-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.05);
     }
 
     /* Section Styles */
@@ -218,10 +215,10 @@
     }
 
     .service-card {
-        background: rgba(255, 255, 255, 0.03);
+        background: transparent;
         padding: 2.5rem;
         border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
@@ -234,15 +231,15 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        background: rgba(255, 255, 255, 0.03);
         opacity: 0;
         transition: opacity 0.3s ease;
     }
 
     .service-card:hover {
-        transform: translateY(-10px);
-        border-color: rgba(102, 126, 234, 0.5);
-        box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        transform: translateY(-10px) scale(1.02);
+        border-color: rgba(255, 255, 255, 0.6);
+        box-shadow: 0 20px 40px rgba(255, 255, 255, 0.15);
     }
 
     .service-card:hover::before {
@@ -277,18 +274,19 @@
     }
 
     .project-card {
-        background: rgba(255, 255, 255, 0.03);
+        background: transparent;
         border-radius: 20px;
         overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         transition: all 0.3s ease;
         cursor: pointer;
     }
 
     .project-card:hover {
-        transform: translateY(-10px);
-        border-color: rgba(102, 126, 234, 0.5);
-        box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        transform: translateY(-10px) scale(1.02);
+        border-color: rgba(255, 255, 255, 0.6);
+        box-shadow: 0 20px 40px rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.03);
     }
 
     .project-image {
