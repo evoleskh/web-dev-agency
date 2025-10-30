@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StellarShift Digital - Web Development Agency</title>
-    <!-- Load Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Roboto Font -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/heroicons@2.1.1/dist/umd/heroicons.min.js"></script>
     <style>
         /*
         --------------------------------------------------
@@ -18,23 +17,70 @@
         body {
             font-family: 'Roboto', sans-serif;
             /* Solid dark background matching the image */
-            background-color: #1a1a1a; 
+            background-color: #1a1a1a;
             position: relative;
         }
 
-        /* Removed Star/Galaxy Background Animation */
-        body::before {
-            content: none; 
-        }
+      /* 1. Subtle Starry Background Animation */
+      body::before {
+        content: '';
+        position: fixed; /* 'fixed' keeps it in place during scroll */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* Sits behind your z-10 content, but in front of the body's bg-color */
+        z-index: 0; 
 
+        /* Create three layers of stars using radial gradients */
+        background-image: 
+          /* Layer 1: Small, dense stars */
+          radial-gradient(circle, rgba(255,255,255,0.7) 1px, transparent 1.5px),
+          /* Layer 2: Medium, sparser stars */
+          radial-gradient(circle, rgba(255,255,255,0.5) 1.5px, transparent 2px),
+          /* Layer 3: Faint, large stars */
+          radial-gradient(circle, rgba(255,255,255,0.3) 2px, transparent 3px);
+
+        /* Tile each layer at different sizes to create a random, non-grid look */
+        background-size: 
+          100px 100px, /* Small stars */
+          180px 180px, /* Medium stars */
+          280px 280px; /* Large stars */
+
+        /* Offset the layers so they don't overlap perfectly */
+        background-position: 
+          0 0, 
+          40px 40px, 
+          100px 100px;
+
+        /* Apply the subtle "twinkle" animation */
+        animation: twinkle-pulse 10s infinite ease-in-out;
+      }
+
+      /* 2. Keyframes for the twinkle animation */
+      @keyframes twinkle-pulse {
+        0% { opacity: 0.5; }
+        50% { opacity: 0.9; }
+        100% { opacity: 0.5; }
+      }
+      /* New keyframe for the slow, subtle star drift */
+      @keyframes subtle-drift {
+          0% {
+              background-position: 0 0, 40px 40px, 100px 100px;
+          }
+          100% {
+              /* Move each layer by a different amount for a parallax effect */
+              background-position: 0 100px, 40px 140px, 100px 200px;
+          }
+      }
         /* 2. Base styles for bordered elements */
         .btn-base-style {
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2); 
-            background: transparent; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
             color: white;
-            z-index: 1; 
+            z-index: 1;
             transition: all 0.3s ease-out;
         }
 
@@ -42,14 +88,14 @@
         .btn-base-style:hover {
             border-color: rgba(255, 255, 255, 0.6); /* Brighten the border */
             background-color: rgba(255, 255, 255, 0.05); /* Subtle background fill */
-            box-shadow: none; 
+            box-shadow: none;
         }
 
         .box-base-style {
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15); 
-            z-index: 1; 
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            z-index: 1;
             transition: border-color 0.3s ease-out;
         }
 
@@ -61,16 +107,16 @@
             animation: border-glow-pulse 2.5s infinite ease-in-out;
             transition: box-shadow 0.4s ease-in-out, border-color 0.4s ease-in-out;
             /* Initial subtle shadow (from 10% opacity) */
-            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.1); 
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.1);
         }
 
         /* Hover state: stronger glow and pause the background pulse */
         .box-base-style.border-pulse-animation:hover {
             /* Stronger, static glow on hover */
-            box-shadow: 0 0 35px 5px rgba(255, 255, 255, 0.4); 
+            box-shadow: 0 0 35px 5px rgba(255, 255, 255, 0.4);
             border-color: rgba(255, 255, 255, 0.4);
             /* Pause the background pulse when hovered for better focus */
-            animation-play-state: paused; 
+            animation-play-state: paused;
         }
 
         @keyframes border-glow-pulse {
@@ -89,54 +135,64 @@
 </head>
 
 <body class="bg-gray-900 text-white min-h-screen dark">
-    <!-- Main content container -->
     <div class="relative z-10">
 
-        <!-- Header/Navigation -->
-        <header class="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-sm shadow-lg">
+        <header class="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-md shadow-xl">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-                <!-- Logo -->
-                <div class="text-xl sm:text-2xl font-bold text-gray-300">
+                <a href="#hero" class="text-xl sm:text-2xl font-bold text-gray-300 z-50">
                     StellarShift
-                </div>
-                <!-- Navigation Links -->
+                </a>
+                
                 <nav class="hidden md:flex space-x-8 text-sm font-light text-white">
                     <a href="#services" class="hover:text-gray-300 transition duration-300">Services</a>
                     <a href="#work" class="hover:text-gray-300 transition duration-300">Our Work</a>
                     <a href="#contact" class="hover:text-gray-300 transition duration-300">Contact</a>
                 </nav>
-                <!-- CTA Button - NO border-pulse-animation -->
-                <a href="#contact" class="px-4 py-1.5 sm:px-5 sm:py-2 rounded-full text-xs uppercase tracking-wider btn-base-style">
-                    <span>Start Project</span>
-                </a>
+
+                <div class="flex items-center">
+                    <a href="#contact" class="hidden md:block ml-8 px-5 py-2 rounded-full text-xs uppercase tracking-wider btn-base-style">
+                        <span>Start Project</span>
+                    </a>
+
+                    <button id="mobile-menu-button" class="md:hidden p-2 ml-4 text-white hover:text-gray-300 transition z-50" aria-label="Toggle menu">
+                        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
             </div>
+
+            <nav id="mobile-menu-panel" class="absolute top-full left-0 w-full bg-gray-900/95 backdrop-blur-lg shadow-xl md:hidden transform -translate-y-full opacity-0 transition-all duration-300 ease-in-out pt-2 pb-4 border-t border-white/10" aria-expanded="false">
+                <div class="flex flex-col space-y-3 px-4 text-center">
+                    <a href="#services" class="block py-2 text-base font-medium hover:text-gray-300 transition duration-300 mobile-nav-link">Services</a>
+                    <a href="#work" class="block py-2 text-base font-medium hover:text-gray-300 transition duration-300 mobile-nav-link">Our Work</a>
+                    <a href="#contact" class="block py-2 text-base font-medium hover:text-gray-300 transition duration-300 mobile-nav-link">Contact</a>
+                    <a href="#contact" class="mt-4 px-6 py-2.5 rounded-full text-sm uppercase tracking-wider btn-base-style mobile-nav-link">
+                        <span>Start Project</span>
+                    </a>
+                </div>
+            </nav>
         </header>
 
         <main>
-            <!-- 1. Hero Section -->
-            <section id="hero" class="pt-24 pb-32 md:pt-40 md:pb-64 text-center max-w-4xl mx-auto px-4">
-                <h1 class="text-5xl sm:text-6xl md:text-8xl font-extrabold mb-4 sm:mb-6 leading-tight tracking-tight">
+            <section id="hero" class="pt-20 pb-28 md:pt-40 md:pb-64 text-center max-w-4xl mx-auto px-4">
+                <h1 class="text-4xl sm:text-6xl md:text-8xl font-extrabold mb-4 sm:mb-6 leading-snug tracking-tight">
                     <span class="text-white block">Digital Presence</span>
                     Engineered for Impact.
                 </h1>
-                <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 sm:mb-10 max-w-2xl mx-auto">
+                <p class="text-base sm:text-xl md:text-2xl text-gray-300 mb-8 sm:mb-10 max-w-2xl mx-auto">
                     We craft high-performance, responsive websites that convert visitors into clients.
                 </p>
-                <!-- CTA Button - NO border-pulse-animation -->
                 <a href="#services" class="px-6 py-3 sm:px-8 sm:py-3 rounded-full text-base sm:text-lg uppercase tracking-wide btn-base-style">
                     <span>Explore Services</span>
                 </a>
             </section>
 
-            <!-- 2. Services Section -->
-            <section id="services" class="py-16 sm:py-20 px-4">
+            <section id="services" class="py-12 sm:py-20 px-4">
                 <div class="max-w-7xl mx-auto">
-                    <h2 class="text-4xl sm:text-5xl font-bold text-center mb-12 sm:mb-16">Our Core Services</h2>
+                    <h2 class="text-3xl sm:text-5xl font-bold text-center mb-10 sm:mb-16">Our Core Services</h2>
 
-                    <!-- Responsive grid -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
                         
-                        <!-- Service Card 1 - WITH working border-pulse-animation -->
                         <div class="box-base-style dark:bg-black bg-white text-black dark:text-white p-6 sm:p-8 rounded-2xl shadow-xl border-pulse-animation">
                             <div class="text-3xl sm:text-4xl dark:text-gray-300 text-gray-700 mb-3 sm:mb-4">
                                 <svg class="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1v-3m0 0h-6m6 0v-3m0 3a1 1 0 001-1V9a1 1 0 00-1-1H9a1 1 0 00-1 1v6a1 1 0 001 1h6z"></path></svg>
@@ -147,7 +203,6 @@
                             </p>
                         </div>
 
-                        <!-- Service Card 2 - WITH working border-pulse-animation -->
                         <div class="box-base-style dark:bg-black bg-white text-black dark:text-white p-6 sm:p-8 rounded-2xl shadow-xl border-pulse-animation">
                             <div class="text-3xl sm:text-4xl dark:text-gray-300 text-gray-700 mb-3 sm:mb-4">
                                 <svg class="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -158,7 +213,6 @@
                             </p>
                         </div>
 
-                        <!-- Service Card 3 - WITH working border-pulse-animation -->
                         <div class="box-base-style dark:bg-black bg-white text-black dark:text-white p-6 sm:p-8 rounded-2xl shadow-xl border-pulse-animation">
                             <div class="text-3xl sm:text-4xl dark:text-gray-300 text-gray-700 mb-3 sm:mb-4">
                                 <svg class="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 .895 3 2s-1.343 2-3 2v2m0 0a3 3 0 003-3H9a3 3 0 003 3v2z"></path></svg>
@@ -173,31 +227,27 @@
                 </div>
             </section>
 
-            <!-- 3. Portfolio Preview (Mock) -->
-            <section id="work" class="py-16 sm:py-20 px-4">
+            <section id="work" class="py-12 sm:py-20 px-4">
                 <div class="max-w-7xl mx-auto">
-                    <h2 class="text-4xl sm:text-5xl font-bold text-center mb-12 sm:mb-16">Featured Projects</h2>
-                    <!-- Responsive grid -->
+                    <h2 class="text-3xl sm:text-5xl font-bold text-center mb-10 sm:mb-16">Featured Projects</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10">
                         
-                        <!-- Project 1 - WITH working border-pulse-animation -->
                         <div class="box-base-style dark:bg-black bg-white text-black dark:text-white p-6 rounded-2xl border-pulse-animation">
-                            <div class="h-56 sm:h-64 rounded-xl mb-4 bg-gray-800 flex items-center justify-center dark:text-gray-500 text-gray-300 font-bold">
-                                
+                            <div class="h-48 sm:h-64 rounded-xl mb-4 bg-gray-800 flex items-center justify-center dark:text-gray-500 text-gray-300 font-bold">
+                                [Project Mockup Image]
                             </div>
-                            <h3 class="text-2xl sm:text-3xl font-semibold dark:text-gray-300 text-gray-700 mb-2">Aura SaaS Platform</h3>
-                            <p class="dark:text-gray-400 text-gray-700 mb-4">Complex B2B platform migration and full front-end rebuild for better performance and UX.</p>
+                            <h3 class="text-xl sm:text-3xl font-semibold dark:text-gray-300 text-gray-700 mb-2">Aura SaaS Platform</h3>
+                            <p class="dark:text-gray-400 text-gray-700 mb-4 text-sm sm:text-base">Complex B2B platform migration and full front-end rebuild for better performance and UX.</p>
                             <span class="inline-block text-xs dark:text-gray-500 text-gray-700 border dark:border-gray-500 border-gray-700 px-3 py-1 rounded-full">ReactJS</span>
                             <span class="inline-block text-xs dark:text-gray-500 text-gray-700 border dark:border-gray-500 border-gray-700 px-3 py-1 rounded-full ml-2">Tailwind CSS</span>
                         </div>
 
-                        <!-- Project 2 - WITH working border-pulse-animation -->
                         <div class="box-base-style dark:bg-black bg-white text-black dark:text-white p-6 rounded-2xl border-pulse-animation">
-                            <div class="h-56 sm:h-64 rounded-xl mb-4 bg-gray-800 flex items-center justify-center dark:text-gray-500 text-gray-300 font-bold">
-                                
+                            <div class="h-48 sm:h-64 rounded-xl mb-4 bg-gray-800 flex items-center justify-center dark:text-gray-500 text-gray-300 font-bold">
+                                [Project Mockup Image]
                             </div>
-                            <h3 class="text-2xl sm:text-3xl font-semibold dark:text-gray-300 text-gray-700 mb-2">Elevate E-commerce</h3>
-                            <p class="dark:text-gray-400 text-gray-700 mb-4">Custom headless e-commerce solution with dynamic content delivery and optimized product pages.</p>
+                            <h3 class="text-xl sm:text-3xl font-semibold dark:text-gray-300 text-gray-700 mb-2">Elevate E-commerce</h3>
+                            <p class="dark:text-gray-400 text-gray-700 mb-4 text-sm sm:text-base">Custom headless e-commerce solution with dynamic content delivery and optimized product pages.</p>
                             <span class="inline-block text-xs dark:text-gray-500 text-gray-700 border dark:border-gray-500 border-gray-700 px-3 py-1 rounded-full">Next.js</span>
                             <span class="inline-block text-xs dark:text-gray-500 text-gray-700 border dark:border-gray-500 border-gray-700 px-3 py-1 rounded-full ml-2">API Integration</span>
                         </div>
@@ -205,26 +255,22 @@
                 </div>
             </section>
 
-            <!-- 4. Contact/CTA Section -->
-            <section id="contact" class="py-24 sm:py-32 px-4 text-center">
-                <!-- Contact Container - WITH working border-pulse-animation -->
-                <div class="box-base-style dark:bg-black bg-white text-black dark:text-white max-w-4xl mx-auto p-8 md:p-16 rounded-3xl border-pulse-animation">
+            <section id="contact" class="py-16 sm:py-32 px-4 text-center">
+                <div class="box-base-style dark:bg-black bg-white text-black dark:text-white max-w-4xl mx-auto p-6 md:p-16 rounded-3xl border-pulse-animation">
                     <h2 class="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
                         Ready to launch <span class="dark:text-white text-black">your next great idea</span>?
                     </h2>
                     <p class="text-base sm:text-xl dark:text-gray-300 text-gray-700 mb-8 sm:mb-10">
                         Let's discuss your project goals and how we can bring them to life with stellar web development.
                     </p>
-                    <!-- CTA Button - NO border-pulse-animation -->
-                    <a href="#" onclick="alert('Contact form functionality is simulated. Please reach out to us!')" class="inline-block px-8 py-3 sm:px-10 sm:py-4 rounded-full text-lg sm:text-xl font-semibold uppercase tracking-wider btn-base-style">
+                    <a href="#" onclick="alert('Contact form functionality is simulated. Please reach out to us!')" class="inline-block px-8 py-3 sm:px-10 sm:py-4 rounded-full text-base sm:text-xl font-semibold uppercase tracking-wider btn-base-style">
                         <span>Get A Quote Today</span>
                     </a>
                 </div>
             </section>
         </main>
 
-        <!-- Footer -->
-        <footer class="py-8 sm:py-10 border-t dark:border-white/10 border-black/10 mt-10">
+        <footer class="py-6 sm:py-10 border-t dark:border-white/10 border-black/10 mt-10">
             <div class="max-w-7xl mx-auto px-4 text-center text-xs sm:text-sm dark:text-gray-400 text-gray-700">
                 <p>&copy; 2025 StellarShift Digital. All rights reserved.</p>
                 <div class="mt-2 space-x-4">
@@ -234,5 +280,47 @@
             </div>
         </footer>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.getElementById('mobile-menu-button');
+            const menu = document.getElementById('mobile-menu-panel');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+            const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+            const toggleMenu = () => {
+                const isOpen = menu.classList.contains('translate-y-0');
+                
+                // Toggle classes for the panel
+                menu.classList.toggle('-translate-y-full');
+                menu.classList.toggle('translate-y-0');
+                menu.classList.toggle('opacity-0');
+                menu.classList.toggle('opacity-100');
+                menu.setAttribute('aria-expanded', !isOpen);
+
+                // Toggle icons
+                menuIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+                
+                // Toggle body scroll lock (optional but good for mobile UX)
+                document.body.classList.toggle('overflow-hidden', !isOpen);
+            };
+
+            button.addEventListener('click', toggleMenu);
+
+            // Close menu when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Only close if the menu is open
+                    if (menu.classList.contains('translate-y-0')) {
+                         // Use a slight delay to allow smooth scrolling before closing
+                        setTimeout(toggleMenu, 300);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
+
